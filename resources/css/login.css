@@ -1,0 +1,248 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+}
+
+.login-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+
+/* ===================================================== */
+/* LADO IZQUIERDO */
+/* ===================================================== */
+
+.login-left {
+    width: 35%; 
+    min-width: 440px; /* Lo aumentamos un poco más para dar espacio al logo grande */
+    background: white;
+    padding: 50px 60px; /* Más aire arriba y abajo */
+    border-top-right-radius: 40px; 
+    border-bottom-right-radius: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 15px 0 35px rgba(0, 0, 0, 0.05);
+
+    position: relative;
+    z-index: 2;
+}
+
+/* Centrado y tamaño del Logo */
+.logo-container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px; /* Un poco más de separación con el título */
+}
+
+.logo-login {
+    width: 260px; /* De 200px a 260px para que resalte y se lea "Soluciones Energéticas" */
+    height: auto;
+    object-fit: contain;
+}
+
+.login-title {
+    font-size: 30px; 
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+}
+
+.login-subtitle {
+    color: #64748b;
+    font-size: 14px; 
+    margin-bottom: 35px;
+    margin-top: 0;
+}
+
+/* ===================================================== */
+/* FORMULARIO */
+/* ===================================================== */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-label {
+    display: block;
+    font-size: 13.5px; 
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #334155;
+}
+
+.form-control {
+    width: 100%;
+    height: 50px; 
+    border-radius: 12px; 
+    border: 1px solid #cbd5e1;
+    padding: 0 16px;
+    font-size: 15px;
+    background: #f8fafc;
+    outline: none;
+    box-sizing: border-box; 
+    transition: all 0.25s ease;
+}
+
+/* Efecto focus moderno con el color de tu marca */
+.form-control:focus {
+    border-color: #52b848;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(82, 184, 72, 0.15);
+}
+
+.password-box {
+    position: relative;
+}
+
+.password-box .form-control {
+    padding-right: 45px;
+}
+
+.password-box i {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.password-box i:hover {
+    color: #52b848;
+}
+
+/* ===================================================== */
+/* RECORDARME */
+/* ===================================================== */
+
+.remember-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 35px;
+    color: #475569;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.remember-box input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    accent-color: #52b848; /* El checkbox se vuelve verde automáticamente */
+}
+
+/* ===================================================== */
+/* BOTÓN */
+/* ===================================================== */
+
+.btn-login {
+    width: 100%;
+    height: 50px; 
+    border: none;
+    border-radius: 12px;
+    background: #52b848;
+    color: white;
+    font-size: 16px; 
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(82, 184, 72, 0.25);
+    transition: all 0.2s ease;
+}
+
+/* Efecto interactivo al pasar el mouse */
+.btn-login:hover {
+    background: #439e3a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(82, 184, 72, 0.35);
+}
+
+.btn-login:active {
+    transform: translateY(1px);
+}
+
+/* ===================================================== */
+/* LADO DERECHO */
+/* ===================================================== */
+
+.login-right {
+    flex-grow: 1; 
+    position: relative;
+
+    background-image: 
+        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), 
+        url('../images/paneles.jpg'); 
+    
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-right::before {
+    display: none;
+}
+
+.energy-text {
+    color: white;
+    font-size: 46px; 
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.3;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    padding: 0 30px;
+    letter-spacing: -0.5px;
+}
+.alert-error{
+    width: 100%;
+    background: #ffe5e5;
+    color: #d8000c;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Cuando el botón de editar usuario esté deshabilitado */
+.btn-edit-user:disabled {
+    background-color: #e9ecef !important; /* Gris claro de fondo */
+    border-color: #dee2e6 !important;     /* Borde gris tenue */
+    opacity: 0.7 !important;              /* Un toque de opacidad */
+    cursor: not-allowed !important;        /* Cursor de prohibido */
+    pointer-events: auto !important;       /* Fuerza al navegador a mostrar el cursor */
+}
+
+/* Apaga también el color azul del icono del lápiz */
+.btn-edit-user:disabled i.bi-pencil {
+    color: #6c757d !important; /* Cambia el lápiz de azul a gris oscuro */
+}
+
+/* ===================================================== */
+/* RESPONSIVE */
+/* ===================================================== */
+
+@media(max-width: 1000px) { /* Subió de 950px a 1000px */
+    .login-right {
+        display: none;
+    }
+
+    .login-left {
+        width: 100%;
+        min-width: 100%;
+        border-radius: 0;
+        padding: 40px 30px;
+    }
+}

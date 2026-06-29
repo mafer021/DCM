@@ -1,0 +1,522 @@
+/* ===================================================== */
+/* TABLA */
+/* ===================================================== */
+
+.table {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: #f8fafc;
+}
+
+.table th {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    padding: 16px;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 16px;
+    font-size: 14px;
+    color: #334155;
+}
+
+/* ===================================================== */
+/* CARD TABLA */
+/* ===================================================== */
+
+.card {
+    border-radius: 16px;
+}
+
+/* ===================================================== */
+/* BADGES STOCK */
+/* ===================================================== */
+
+.badge-stock-success {
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 30px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-stock-warning {
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 30px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-stock-danger {
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 30px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ===================================================== */
+/* BADGES ESTADO */
+/* ===================================================== */
+
+.badge-disponible {
+    background: #dcfce7;
+    color: #166534;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-bajo {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ===================================================== */
+/* BOTONES TABLA */
+/* ===================================================== */
+
+.btn-light {
+    border: none;
+    background: #f8fafc;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.btn-light:hover {
+    background: #e2e8f0;
+}
+
+/* BOTÓN ELIMINAR */
+
+.btn-delete:hover {
+    background: #fee2e2 !important;
+}
+
+/* ===================================================== */
+/* BOTONES PRINCIPALES */
+/* ===================================================== */
+
+.btn-success {
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+.btn-outline-secondary {
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+/* ===================================================== */
+/* INPUTS */
+/* ===================================================== */
+
+.form-control,
+.form-select {
+    border-radius: 12px;
+    min-height: 45px;
+    border: 1px solid #dbe2ea;
+    font-size: 14px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: none;
+    border-color: #22c55e;
+}
+
+/* ===================================================== */
+/* MODALES */
+/* ===================================================== */
+
+.modal-content {
+    border-radius: 18px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 20px 24px;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    padding: 20px 24px;
+}
+
+/* ===================================================== */
+/* LABELS */
+/* ===================================================== */
+
+.form-label {
+    margin-bottom: 8px;
+    color: #334155;
+}
+
+/* ===================================================== */
+/* TEXTO INFORMATIVO */
+/* ===================================================== */
+
+.stock-info-success {
+    background: #ecfdf5;
+    color: #166534;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stock-info-danger {
+    background: #fef2f2;
+    color: #991b1b;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* ===================================================== */
+/* BOTÓN MOVIMIENTOS */
+/* ===================================================== */
+
+.btn-movimientos{
+    border:1px solid #dcdfe4;
+    background:white;
+    color:#374151;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-movimientos:hover{
+    background:#f3f4f6;
+    border-color:#cfd4dc;
+}
+
+
+
+
+
+/* ===================================================== */
+/* BADGES STOCK */
+/* ===================================================== */
+
+.badge-stock-success{
+    background:#dcfce7;
+    color:#166534;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.badge-stock-warning{
+    background:#fef3c7;
+    color:#92400e;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.badge-stock-danger{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+
+
+
+
+/* ===================================================== */
+/* BADGES ESTADO */
+/* ===================================================== */
+
+.badge-disponible{
+    background:#dcfce7;
+    color:#166534;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.badge-bajo{
+    background:#fef3c7;
+    color:#92400e;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+
+
+
+
+/* ===================================================== */
+/* TABLA */
+/* ===================================================== */
+
+.table{
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.table thead{
+    background:#f8fafc;
+}
+
+.table th{
+    font-size:14px;
+    font-weight:700;
+    color:#374151;
+    padding:16px;
+}
+
+.table td{
+    padding:16px;
+    vertical-align:middle;
+    color:#4b5563;
+}
+
+
+
+
+
+/* ===================================================== */
+/* BOTONES ACCIONES */
+/* ===================================================== */
+
+.btn-action{
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:10px;
+    background:#f3f4f6;
+    transition:.3s;
+}
+
+.btn-action:hover{
+    background:#e5e7eb;
+}
+
+.btn-delete:hover{
+    background:#fee2e2;
+}
+
+
+
+
+
+/* ===================================================== */
+/* MODALES */
+/* ===================================================== */
+
+.modal-content{
+    border-radius:18px;
+    overflow:hidden;
+}
+
+.modal-header{
+    padding:20px 24px;
+    border-bottom:1px solid #f1f1f1;
+}
+
+.modal-body{
+    padding:24px;
+}
+
+.modal-footer{
+    padding:20px 24px;
+}
+
+
+
+
+
+/* ===================================================== */
+/* INPUTS */
+/* ===================================================== */
+
+.form-control,
+.form-select{
+    height:48px;
+    border-radius:12px;
+    border:1px solid #dcdfe4;
+    box-shadow:none !important;
+}
+
+textarea.form-control{
+    height:auto;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#22c55e;
+}
+
+
+
+
+
+/* ===================================================== */
+/* BOTÓN VERDE */
+/* ===================================================== */
+
+.btn-success{
+    background:#16a34a !important;
+    border:none !important;
+    border-radius:12px;
+    padding:11px 18px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-success:hover{
+    background:#15803d !important;
+}
+
+
+
+
+
+/* ===================================================== */
+/* ALERTAS STOCK */
+/* ===================================================== */
+
+.alert-stock-up{
+    background:#dcfce7;
+    color:#166534;
+    border:none;
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:14px;
+    font-weight:500;
+}
+
+.alert-stock-down{
+    background:#fee2e2;
+    color:#991b1b;
+    border:none;
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:14px;
+    font-weight:500;
+}
+
+
+
+
+
+/* ===================================================== */
+/* MOVIMIENTOS */
+/* ===================================================== */
+
+.tipo-entrada{
+    color:#16a34a;
+    font-weight:700;
+}
+
+.tipo-salida{
+    color:#dc2626;
+    font-weight:700;
+}
+
+.movimiento-icon-up{
+    color:#16a34a;
+    font-size:18px;
+}
+
+.movimiento-icon-down{
+    color:#dc2626;
+    font-size:18px;
+}
+
+
+
+
+
+/* ===================================================== */
+/* CARD INVENTARIO */
+/* ===================================================== */
+
+.card{
+    border-radius:16px;
+    overflow:hidden;
+}
+
+/* Estilo moderno para el contador de stock */
+.stock-badge {
+    background-color: #878df2; /* Un gris muy suave y limpio */
+    color: #13171a;           /* Un gris oscuro para que sea legible */
+    font-weight: 600;         /* Un poco más negrita para resaltar */
+    padding: 0.25rem 0.6rem;  /* Un poco de espacio interno */
+    border-radius: 8px;       /* Bordes más redondeados */
+    border: 1px solid #dee2e6; /* Un borde sutil para que tenga profundidad */
+    font-size: 0.85rem;       /* Tamaño de fuente adecuado */
+    display: inline-block;
+    min-width: 25px;          /* Un tamaño mínimo por si el número es pequeño */
+    text-align: center;
+}
+.stock-badge:hover {
+    background-color: #e9ecef;
+    cursor: default;
+}
+
+/* Asegura que los modales de entrada/salida siempre estén encima */
+    #modalEntrada, #modalSalida {
+        z-index: 1060 !important;
+    }
+
+
+
+
+/* ===================================================== */
+/* RESPONSIVE */
+/* ===================================================== */
+
+@media(max-width:768px){
+
+    .table th,
+    .table td{
+        font-size:13px;
+    }
+
+    .btn-success{
+        width:100%;
+    }
+
+}

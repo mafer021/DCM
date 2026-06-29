@@ -1,0 +1,144 @@
+body{
+    margin:0;
+    background:#f4f6f9;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:270px;
+    height:100vh;
+    position:fixed;
+    background: linear-gradient(180deg,#003b46,#001f29);
+    color:white;
+    display:flex;
+    flex-direction:column;
+    /*justify-content:space-between;*/
+    padding-top:20px;
+}
+
+/* LOGO */
+
+.logo{
+    text-align:center;
+    padding:10px 20px 25px;
+}
+
+.logo img{
+    width:210px;
+    object-fit:contain;
+}
+
+/* MENU */
+
+.menu{
+    padding:0 15px;
+    
+    
+}
+
+.menu a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:white;
+    text-decoration:none;
+    padding:10px 14px;
+    border-radius:12px;
+    margin-bottom:6px;
+    transition:.3s ease;
+    font-size:18px;
+    font-weight:500;
+}
+
+.menu a i{
+    font-size:18px;
+}
+
+.menu a:hover{
+    background:#0f766e;
+    transform:translateX(3px);
+}
+
+.menu .active{
+    background:#16a34a;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+/* LOGOUT */
+
+.logout-box{
+    padding:15px;
+    position: absolute; /* Esto lo saca del flujo normal */
+    bottom: 0;          /* Lo pega al fondo del sidebar */
+    width: 270px;       /* Mismo ancho del sidebar */
+    box-sizing: border-box; /* Asegura que el padding no desborde el ancho */
+}
+
+.logout-btn{
+    width:100%;
+    border:none;
+    background:#dc2626;
+    color:white;
+    padding:13px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    transition:.3s ease;
+}
+
+.logout-btn:hover{
+    background:#b91c1c;
+}
+
+/* CONTENIDO */
+
+.main-content{
+    margin-left:270px;
+    min-height:100vh;
+}
+
+/* TOPBAR */
+
+.topbar{
+    height:75px;
+    background:white;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    padding:0 30px;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+/* CONTENT */
+
+.content{
+    padding:30px;
+}
+
+/* USER */
+
+.user-box{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:600;
+    color:#1f2937;
+}
+
+.user-circle{
+    width:42px;
+    height:42px;
+    background:#16a34a;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:18px;
+}
