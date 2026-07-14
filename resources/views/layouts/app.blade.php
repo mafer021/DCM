@@ -61,6 +61,15 @@
 
             </a>
 
+
+            <a href="{{ url('/prospectos') }}"
+                class="{{ request()->is('prospectos') ? 'active' : '' }}">
+
+                <i class="bi bi-person-lines-fill"></i>
+                Prospectos
+
+            </a>
+
             <a href="{{ url('/reportes') }}"
                class="{{ request()->is('reportes') ? 'active' : '' }}">
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\ProspectoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AuthController;
 
@@ -97,6 +98,17 @@ Route::patch('/inventario/{id}/desactivar', [InventarioController::class, 'desac
 Route::put('/inventario/{id}', [InventarioController::class, 'update'])->name('inventario.update');
 
 Route::post('/movimientos/store', [MovimientoController::class, 'store'])->name('movimientos.store');
+
+
+/*
+    |--------------------------------------------------------------------------
+    | Prospectos
+    |--------------------------------------------------------------------------
+    |*/
+
+    Route::get('/prospectos', [ProspectoController::class, 'index'])->name('prospectos.index');
+
+
 
     /*
     |--------------------------------------------------------------------------

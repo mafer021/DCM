@@ -1,0 +1,529 @@
+/*==================================================
+                MÓDULO PROSPECTOS
+==================================================*/
+
+.prospectos-container{
+
+    width:100%;
+
+}
+
+/*==================================================
+                    ENCABEZADO
+==================================================*/
+
+.prospectos-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.prospectos-title{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#1e293b;
+
+    margin-bottom:5px;
+
+}
+
+.prospectos-subtitle{
+
+    color:#64748b;
+
+    margin:0;
+
+    font-size:15px;
+
+}
+
+/*==================================================
+                BOTÓN NUEVO
+==================================================*/
+
+.btn-nuevo-prospecto{
+
+    padding:10px 22px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+}
+
+/*==================================================
+                TARJETA
+==================================================*/
+
+.prospectos-card{
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+
+}
+
+/*==================================================
+                BUSCADOR
+==================================================*/
+
+.prospectos-top{
+
+    margin-bottom:20px;
+
+}
+
+.buscador{
+
+    position:relative;
+
+    width:360px;
+
+}
+
+.buscador i{
+
+    position:absolute;
+
+    left:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#94a3b8;
+
+    font-size:15px;
+
+}
+
+.buscador input{
+
+    padding-left:42px;
+
+    height:45px;
+
+    border-radius:10px;
+
+    border:1px solid #d1d5db;
+
+}
+
+.buscador input:focus{
+
+    box-shadow:none;
+
+    border-color:#198754;
+
+}
+
+/*==================================================
+                    TABLA
+==================================================*/
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.table thead{
+
+    background:#f8fafc;
+
+}
+
+.table thead th{
+
+    border:none;
+
+    color:#475569;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    padding:18px 15px;
+
+    white-space:nowrap;
+
+}
+
+.table tbody td{
+
+    padding:18px 15px;
+
+    vertical-align:middle;
+
+    color:#334155;
+
+    border-top:1px solid #eef2f7;
+
+    font-size:14px;
+
+}
+
+.table tbody tr{
+
+    transition:.25s;
+
+}
+
+.table tbody tr:hover{
+
+    background:#f8fafc;
+
+}
+
+/*==================================================
+                    BADGES
+==================================================*/
+
+.badge{
+
+    font-size:12px;
+
+    padding:8px 14px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    letter-spacing:.3px;
+
+}
+
+/*==================================================
+            BOTONES DE ACCIONES
+==================================================*/
+
+.table .btn{
+
+    width:36px;
+
+    height:36px;
+
+    padding:0;
+
+    border-radius:10px;
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:0 3px;
+
+}
+
+.table .btn i{
+
+    font-size:15px;
+
+}
+
+/* Editar */
+
+.table .btn-warning{
+
+    color:#fff;
+
+}
+
+/* Cambiar estado */
+
+.table .btn-secondary{
+
+    background:#64748b;
+
+    border-color:#64748b;
+
+}
+
+.table .btn-secondary:hover{
+
+    background:#475569;
+
+    border-color:#475569;
+
+}
+
+/*==================================================
+            TABLA RESPONSIVE
+==================================================*/
+
+.table-responsive{
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+/*==================================================
+                    MODALES
+==================================================*/
+
+.modal-content{
+
+    border:none;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+
+}
+
+/*==================================================
+                CABECERA MODAL
+==================================================*/
+
+.modal-header{
+
+    padding:18px 24px;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+.modal-title{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#1e293b;
+
+}
+
+.modal-title i{
+
+    margin-right:8px;
+
+}
+
+.btn-close{
+
+    box-shadow:none !important;
+
+}
+
+/*==================================================
+                CUERPO MODAL
+==================================================*/
+
+.modal-body{
+
+    padding:25px;
+
+    background:#ffffff;
+
+}
+
+/*==================================================
+                LABELS
+==================================================*/
+
+.form-label{
+
+    font-weight:600;
+
+    color:#374151;
+
+    margin-bottom:8px;
+
+}
+
+/*==================================================
+                INPUTS
+==================================================*/
+
+.form-control,
+
+.form-select{
+
+    height:46px;
+
+    border-radius:10px;
+
+    border:1px solid #d1d5db;
+
+    transition:.25s;
+
+}
+
+.form-control:focus,
+
+.form-select:focus{
+
+    border-color:#198754;
+
+    box-shadow:0 0 0 .15rem rgba(25,135,84,.15);
+
+}
+
+/*==================================================
+            RADIO BUTTONS
+==================================================*/
+
+.form-check{
+
+    margin-right:20px;
+
+}
+
+.form-check-input{
+
+    cursor:pointer;
+
+}
+
+.form-check-label{
+
+    cursor:pointer;
+
+}
+
+/*==================================================
+            FOOTER DEL MODAL
+==================================================*/
+
+.modal-footer{
+
+    border-top:1px solid #e5e7eb;
+
+    padding:18px 24px;
+
+}
+
+.modal-footer .btn{
+
+    min-width:160px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}
+
+/*==================================================
+        BOTÓN GUARDAR
+==================================================*/
+
+.btn-success{
+
+    transition:.25s;
+
+}
+
+.btn-success:hover{
+
+    transform:translateY(-1px);
+
+}
+
+/*==================================================
+        BOTÓN ACTUALIZAR
+==================================================*/
+
+.btn-warning{
+
+    transition:.25s;
+
+}
+
+.btn-warning:hover{
+
+    transform:translateY(-1px);
+
+}
+
+/*==================================================
+        DOCUMENTO QUE DEJÓ
+==================================================*/
+
+#nuevoDocumentoContainer{
+
+    padding-top:5px;
+
+}
+
+
+/* Estilo para que el encabezado de la tabla sea gris (mismo estilo que Mantenimientos) */
+.table-header-gray {
+    background-color: #f8f9fa; /* Ajusta este tono de gris si necesitas que sea más oscuro */
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* Ajustes para el buscador fuera de la tarjeta */
+.buscador-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    max-width: 400px; /* Para que no se vea gigante */
+}
+
+.buscador-container i {
+    margin-right: 10px;
+    color: #6c757d;
+}
+
+.buscador-container input {
+    border: none;
+    outline: none;
+}
+
+/*==================================================
+            RESPONSIVE MODAL
+==================================================*/
+
+@media(max-width:768px){
+
+    .modal-dialog{
+
+        margin:15px;
+
+    }
+
+    .modal-body{
+
+        padding:18px;
+
+    }
+
+    .modal-footer{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:10px;
+
+    }
+
+    .modal-footer .btn{
+
+        width:100%;
+
+    }
+
+}
