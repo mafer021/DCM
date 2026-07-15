@@ -287,267 +287,102 @@
 
             <div class="modal-body">
 
-                <form>
+                <form action="{{ route('prospectos.store') }}" method="POST">
+                    @csrf 
 
                     <div class="row">
-
                         <div class="col-md-4 mb-3">
-
-                            <label class="form-label">
-
-                                Nombre <span class="text-danger">*</span>
-
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control">
-
+                           <label class="form-label">Nombre <span class="text-danger">*</span></label>
+                           <input type="text" class="form-control" name="nombre" required>
                         </div>
 
                         <div class="col-md-4 mb-3">
-
-                            <label class="form-label">
-
-                                Apellido paterno <span class="text-danger">*</span>
-
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control">
-
+                            <label class="form-label">Apellido paterno <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="apellido_paterno" required>
                         </div>
 
                         <div class="col-md-4 mb-3">
-
-                            <label class="form-label">
-
-                                Apellido materno
-
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control">
-
+                           <label class="form-label">Apellido materno</label>
+                           <input type="text" class="form-control" name="apellido_materno">
                         </div>
-
-                    </div>
+                   </div>
 
                     <div class="row">
+                       <div class="col-md-6 mb-3">
+                             <label class="form-label">Número de teléfono <span class="text-danger">*</span></label>
+                             <input type="text" class="form-control" name="telefono" required>
+                       </div>
 
                         <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-
-                                Número de teléfono <span class="text-danger">*</span>
-
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control">
-
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-
-                                Proyecto de interés <span class="text-danger">*</span>
-
-                            </label>
-
-                            <select class="form-select">
-
-                                <option selected>
-
-                                    Seleccione un proyecto
-
-                                </option>
-
-                                <option>Sistemas Fotovoltaicos</option>
-
-                                <option>Calentadores Solares</option>
-
-                                <option>Paneles Solares</option>
-
-                                <option>Bombas Solares</option>
-
-                                <option>Biodigestores</option>
-
-                                <option>Instalaciones Eléctricas</option>
-
-                            </select>
-
-                        </div>
-
+                             <label class="form-label">Proyecto de interés <span class="text-danger">*</span></label>
+                             <select class="form-select" name="tipo_instalacion_id" required>
+                                     <option selected disabled>Seleccione un proyecto</option>
+                                     @foreach($tiposInstalacion as $tipo)
+                                           <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                     @endforeach
+                              </select>
+                       </div>
                     </div>
-                                        <div class="row">
 
+
+                    <div class="row">
                         <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-
-                                ¿Dejó documento?
-
-                            </label>
-
-                            <div class="mt-2">
-
-                                <div class="form-check form-check-inline">
-
-                                    <input
-                                        class="form-check-input"
-                                        type="radio"
-                                        name="dejo_documento"
-                                        id="nuevoSiDocumento"
-                                        value="1">
-
-                                    <label
-                                        class="form-check-label"
-                                        for="nuevoSiDocumento">
-
-                                        Sí
-
-                                    </label>
-
-                                </div>
-
-                                <div class="form-check form-check-inline">
-
-                                    <input
-                                        class="form-check-input"
-                                        type="radio"
-                                        name="dejo_documento"
-                                        id="nuevoNoDocumento"
-                                        value="0"
-                                        checked>
-
-                                    <label
-                                        class="form-check-label"
-                                        for="nuevoNoDocumento">
-
-                                        No
-
-                                    </label>
-
-                                </div>
-
-                            </div>
-
+                             <label class="form-label">¿Dejó documento?</label>
+                             <div class="mt-2">
+                                  <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" name="dejo_documento" id="nuevoSiDocumento" value="1">
+                                       <label class="form-check-label" for="nuevoSiDocumento">Sí</label>
+                                   </div>
+                                    <div class="form-check form-check-inline">
+                                          <input class="form-check-input" type="radio" name="dejo_documento" id="nuevoNoDocumento" value="0" checked>
+                                           <label class="form-check-label" for="nuevoNoDocumento">No</label>
+                                    </div>
+                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-
-                                Estado del prospecto
-                                <span class="text-danger">*</span>
-
-                            </label>
-
-                            <select class="form-select">
-
-                                <option selected>
-
-                                    Seleccione una opción
-
-                                </option>
-
-                                <option>
-
-                                    Interesado
-
-                                </option>
-
-                                <option>
-
-                                    Solo preguntó
-
-                                </option>
-
-                                <option>
-
-                                    No interesado
-
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
+                               <label class="form-label">Estado del prospecto <span class="text-danger">*</span></label>
+                                <select class="form-select" name="estado_prospecto_id" required>
+                                   <option selected disabled>Seleccione una opción</option>
+                                    @foreach($estadosProspecto as $estado)
+                                       <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
+                                   @endforeach
+                               </select>
+                           </div>
+                     </div>
 
                     <!-- Documento que dejó -->
-<div
-    class="row"
-    id="nuevoDocumentoContainer"
-    style="display:none;">
+                    <div class="row" id="nuevoDocumentoContainer" style="display:none;">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Documento que dejó</label>
+                            <input type="text" class="form-control" name="detalle_documento" placeholder="Ejemplo: INE, recibo de luz...">
+                       </div>
+                    </div>
 
-    <div class="col-md-12 mb-3">
+                  <!-- Notas -->
+                  <div class="row">
+                      <div class="col-md-12 mb-3">
+                             <label class="form-label">Notas</label>
+                            <textarea class="form-control" name="notas" rows="3"></textarea>
+                        </div>
+                  </div>
 
-        <label class="form-label">
+                  <!-- Mantenemos el botón dentro del form para que funcione el submit -->
+                    <div class="modal-footer border-0 p-0 mt-3">
+                        <button type="submit" class="btn btn-success">
+                             <i class="bi bi-floppy-fill"></i> Guardar prospecto
+                        </button>
+                  </div>
+                </form> 
+            </div> <!-- Cierra modal-body -->
+        </div> <!-- Cierra modal-content -->
+    </div> <!-- Cierra modal-dialog -->
+</div> <!-- Cierra modal-fade -->
 
-            Documento que dejó
 
-        </label>
 
-        <input
-            type="text"
-            class="form-control"
-            placeholder="Ejemplo: INE, recibo de luz, escritura, etc.">
 
-    </div>
 
-</div>
-
-<!-- Notas -->
-<div class="row">
-
-    <div class="col-md-12 mb-3">
-
-        <label class="form-label">
-
-            Notas
-
-        </label>
-
-        <textarea
-            class="form-control"
-            rows="3"
-            placeholder="Escriba aquí información adicional sobre el prospecto..."></textarea>
-
-    </div>
-
-</div>
-
-</form>
-
-</div>
-
-<div class="modal-footer">
-
-    
-
-    <button
-        type="button"
-        class="btn btn-success">
-
-        <i class="bi bi-floppy-fill"></i>
-
-        Guardar prospecto
-
-    </button>
-
-</div>
-
-        </div>
-
-    </div>
-
-</div>
 
 <!-- =======================================================
                 MODAL EDITAR PROSPECTO
