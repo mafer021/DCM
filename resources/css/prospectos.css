@@ -493,6 +493,28 @@
 }
 
 /*==================================================
+                    TEXTAREA
+==================================================*/
+
+textarea.form-control{
+
+    min-height:80px;
+
+    resize:vertical;
+
+    border-radius:10px;
+
+}
+
+textarea.form-control:focus{
+
+    border-color:#198754;
+
+    box-shadow:0 0 0 .15rem rgba(25,135,84,.15);
+
+}
+
+/*==================================================
             RESPONSIVE MODAL
 ==================================================*/
 

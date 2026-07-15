@@ -481,47 +481,67 @@
                     </div>
 
                     <!-- Documento que dejó -->
-                    <div
-                        class="row"
-                        id="nuevoDocumentoContainer"
-                        style="display:none;">
+<div
+    class="row"
+    id="nuevoDocumentoContainer"
+    style="display:none;">
 
-                        <div class="col-md-12 mb-3">
+    <div class="col-md-12 mb-3">
 
-                            <label class="form-label">
+        <label class="form-label">
 
-                                Documento que dejó
+            Documento que dejó
 
-                            </label>
+        </label>
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Ejemplo: INE, recibo de luz, escritura, etc.">
+        <input
+            type="text"
+            class="form-control"
+            placeholder="Ejemplo: INE, recibo de luz, escritura, etc.">
 
-                        </div>
+    </div>
 
-                    </div>
+</div>
 
-                </form>
+<!-- Notas -->
+<div class="row">
 
-            </div>
+    <div class="col-md-12 mb-3">
 
-            <div class="modal-footer">
+        <label class="form-label">
 
-                
+            Notas
 
-                <button
-                    type="button"
-                    class="btn btn-success">
+        </label>
 
-                    <i class="bi bi-floppy-fill"></i>
+        <textarea
+            class="form-control"
+            rows="3"
+            placeholder="Escriba aquí información adicional sobre el prospecto..."></textarea>
 
-                    Guardar prospecto
+    </div>
 
-                </button>
+</div>
 
-            </div>
+</form>
+
+</div>
+
+<div class="modal-footer">
+
+    
+
+    <button
+        type="button"
+        class="btn btn-success">
+
+        <i class="bi bi-floppy-fill"></i>
+
+        Guardar prospecto
+
+    </button>
+
+</div>
 
         </div>
 
@@ -734,44 +754,65 @@
 
                     </div>
 
+                    
+
                     <div class="row">
 
-                        <div class="col-md-12 mb-3">
+    <div class="col-md-12 mb-3">
 
-                            <label class="form-label">
+        <label class="form-label">
 
-                                Documento que dejó
+            Documento que dejó
 
-                            </label>
+        </label>
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Cotización">
+        <input
+            type="text"
+            class="form-control"
+            value="Cotización">
 
-                        </div>
+    </div>
 
-                    </div>
+</div>
 
-                </form>
+<!-- NOTAS -->
+<div class="row">
 
-            </div>
+    <div class="col-md-12 mb-3">
 
-            <div class="modal-footer">
+        <label class="form-label">
 
-                
+            Notas
 
-                <button
-                    type="button"
-                    class="btn btn-warning text-white">
+        </label>
 
-                    <i class="bi bi-pencil-fill"></i>
+        <textarea
+            class="form-control"
+            rows="3">El cliente solicitó una cotización para un sistema fotovoltaico de 6 paneles. Prefiere ser contactado por WhatsApp después de las 5:00 p.m.</textarea>
 
-                    Actualizar prospecto
+    </div>
 
-                </button>
+</div>
 
-            </div>
+</form>
+
+</div>
+
+<div class="modal-footer">
+
+    
+
+    <button
+        type="button"
+        class="btn btn-warning text-white">
+
+        <i class="bi bi-pencil-fill"></i>
+
+        Actualizar prospecto
+
+    </button>
+
+</div>
 
         </div>
 
