@@ -22,4 +22,13 @@ class TipoInstalacion extends Model
     {
         return $this->hasMany(Proyecto::class, 'tipo_instalacion_id');
     }
+
+    /**
+     * Relación: tiene muchos proyectos y muchos prospectos..
+     */
+
+    public function prospectos()
+    {
+        return $this->hasMany(Prospecto::class, 'tipo_instalacion_id');
+    }
 }
