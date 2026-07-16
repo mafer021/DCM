@@ -80,169 +80,49 @@
                 </thead>
 
                 <tbody>
-
-                    <!-- Registro de ejemplo -->
-
-                    <tr>
-
-                        <td>
-
-                            Juan Pérez López
-
-                        </td>
-
-                        <td>
-
-                            238 123 4567
-
-                        </td>
-
-                        <td>
-
-                            Sí dejó
-
-                        </td>
-
-                        <td>
-
-                            <span class="badge bg-success">
-
-                                Interesado
-
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            <span class="badge bg-primary">
-
-                                Activo
-
-                            </span>
-
-                        </td>
-
-                        <td class="text-center">
-
-                            <!-- Editar -->
-
-                            <button
-                                class="btn btn-warning btn-sm"
-                                title="Editar"
-
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditarProspecto">
-
-                                <i class="bi bi-pencil-fill"></i>
-
-                            </button>
-
-                            <!-- Cambiar Estado -->
-
-                            <button
-                                class="btn btn-secondary btn-sm"
-                                title="Cambiar estado">
-
-                                <i class="bi bi-arrow-repeat"></i>
-
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                                        <!-- Registro de ejemplo 2 -->
-
-                    <tr>
-
-                        <td>
-
-                            María González Hernández
-
-                        </td>
-
-                        <td>
-
-                            238 456 7890
-
-                        </td>
-
-                        <td>
-
-                            No dejó
-
-                        </td>
-
-                        <td>
-
-                            <span class="badge bg-warning text-dark">
-
-                                Solo preguntó
-
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            <span class="badge bg-danger">
-
-                                Inactivo
-
-                            </span>
-
-                        </td>
-
-                        <td class="text-center">
-
-                            <!-- Editar -->
-
-                            <button
-                                class="btn btn-warning btn-sm"
-                                title="Editar"
-
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditarProspecto">
-
-                                <i class="bi bi-pencil-fill"></i>
-
-                            </button>
-
-                            <!-- Cambiar Estado -->
-
-                            <button
-                                class="btn btn-secondary btn-sm"
-                                title="Cambiar estado">
-
-                                <i class="bi bi-arrow-repeat"></i>
-
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    {{-- Más adelante irá el @forelse() --}}
-                    {{--
-
-                    <tr>
-
-                        <td colspan="6" class="text-center py-5">
-
-                            <i class="bi bi-person-x fs-1 text-secondary"></i>
-
-                            <br><br>
-
-                            No hay prospectos registrados.
-
-                        </td>
-
-                    </tr>
-
-                    --}}
-
-                </tbody>
+    @forelse($prospectos as $prospecto)
+        <tr>
+            <td>{{ $prospecto->nombre }} {{ $prospecto->apellido_paterno }} {{ $prospecto->apellido_materno }}</td>
+            <td>{{ $prospecto->telefono }}</td>
+            <td>
+                @if($prospecto->dejo_documento)
+                    <span class="text-success">Sí: {{ $prospecto->detalle_documento }}</span>
+                @else
+                    <span class="text-secondary">No</span>
+                @endif
+            </td>
+            <td>
+                <span class="badge bg-info text-dark">
+                    {{ $prospecto->estadoProspecto->nombre ?? 'N/A' }}
+                </span>
+            </td>
+            <td>
+                @if($prospecto->estado == 'activo')
+                    <span class="badge bg-primary">Activo</span>
+                @else
+                    <span class="badge bg-danger">Inactivo</span>
+                @endif
+            </td>
+            <td class="text-center">
+                <!-- Editar -->
+                <button class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#modalEditarProspecto">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <!-- Cambiar Estado -->
+                <button class="btn btn-secondary btn-sm" title="Cambiar estado">
+                    <i class="bi bi-arrow-repeat"></i>
+                </button>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="6" class="text-center py-5">
+                <i class="bi bi-person-x fs-1 text-secondary"></i>
+                <br>No hay prospectos registrados.
+            </td>
+        </tr>
+    @endforelse
+</tbody>
 
             </table>
 
@@ -293,79 +173,158 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                            <label class="form-label">Nombre <span class="text-danger">*</span></label>
-                           <input type="text" class="form-control" name="nombre" required>
+                           <input type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required>
+
+                           @error('nombre')
+                          <div class="text-danger small">{{ $message }}</div>
+                          @enderror
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Apellido paterno <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="apellido_paterno" required>
+                            <input type="text" 
+                              class="form-control @error('apellido_paterno') is-invalid @enderror" 
+                              name="apellido_paterno" 
+                              value="{{ old('apellido_paterno') }}" 
+                              required>
+
+                              @error('apellido_paterno')
+                              <div class="text-danger small">{{ $message }}</div>
+                              @enderror
                         </div>
 
                         <div class="col-md-4 mb-3">
                            <label class="form-label">Apellido materno</label>
-                           <input type="text" class="form-control" name="apellido_materno">
+                           <input type="text" 
+                            class="form-control @error('apellido_materno') is-invalid @enderror" 
+                            name="apellido_materno" 
+                            value="{{ old('apellido_materno') }}">
+
+                            @error('apellido_materno')
+                           <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
                    </div>
 
                     <div class="row">
                        <div class="col-md-6 mb-3">
-                             <label class="form-label">Número de teléfono <span class="text-danger">*</span></label>
-                             <input type="text" class="form-control" name="telefono" required>
+                            <label class="form-label">Número de teléfono <span class="text-danger">*</span></label>
+                            <input type="text" 
+                                    class="form-control @error('telefono') is-invalid @enderror" 
+                                    name="telefono" 
+                                    id="inputTelefono" 
+                                    value="{{ old('telefono') }}"
+                                    maxlength="10" 
+                                    placeholder="Ej. 2381234567"
+                                    required>
+    
+                            <!-- Este es el mensaje del JavaScript -->
+                            <div id="feedbackTelefono" class="invalid-feedback">Debe ingresar exactamente 10 dígitos.</div>
+
+                            <!-- Este es el mensaje del servidor (Laravel) -->
+                            @error('telefono')
+                            <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                        </div>
 
                         <div class="col-md-6 mb-3">
-                             <label class="form-label">Proyecto de interés <span class="text-danger">*</span></label>
-                             <select class="form-select" name="tipo_instalacion_id" required>
-                                     <option selected disabled>Seleccione un proyecto</option>
-                                     @foreach($tiposInstalacion as $tipo)
-                                           <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
-                                     @endforeach
-                              </select>
-                       </div>
+                            <label class="form-label">Proyecto de interés <span class="text-danger">*</span></label>
+                            <select class="form-select @error('tipo_instalacion_id') is-invalid @enderror" 
+                                    name="tipo_instalacion_id" 
+                                    required>
+                                <option selected disabled>Seleccione un proyecto</option>
+        
+                               @foreach($tiposInstalacion as $tipo)
+                                  <option value="{{ $tipo->id }}" {{ old('tipo_instalacion_id') == $tipo->id ? 'selected' : '' }}>
+                                        {{ $tipo->nombre }}
+                                   </option>
+                                  @endforeach
+                                </select>
+
+                             @error('tipo_instalacion_id')
+                               <div class="text-danger small">{{ $message }}</div>
+                             @enderror
+                        </div>
                     </div>
 
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                             <label class="form-label">¿Dejó documento?</label>
-                             <div class="mt-2">
-                                  <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="dejo_documento" id="nuevoSiDocumento" value="1">
-                                       <label class="form-check-label" for="nuevoSiDocumento">Sí</label>
-                                   </div>
-                                    <div class="form-check form-check-inline">
-                                          <input class="form-check-input" type="radio" name="dejo_documento" id="nuevoNoDocumento" value="0" checked>
-                                           <label class="form-check-label" for="nuevoNoDocumento">No</label>
+                              <label class="form-label">¿Dejó documento?</label>
+                              <div class="mt-2">
+                                   <div class="form-check form-check-inline">
+                                        <input class="form-check-input @error('dejo_documento') is-invalid @enderror" 
+                                               type="radio" 
+                                               name="dejo_documento" 
+                                               id="nuevoSiDocumento" 
+                                               value="1" 
+                                               {{ old('dejo_documento') == '1' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="nuevoSiDocumento">Sí</label>
                                     </div>
-                             </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input @error('dejo_documento') is-invalid @enderror" 
+                                               type="radio" 
+                                               name="dejo_documento" 
+                                               id="nuevoNoDocumento" 
+                                               value="0" 
+                                               {{ old('dejo_documento', '0') == '0' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="nuevoNoDocumento">No</label>
+                                    </div>
+                                </div>
+    
+                               @error('dejo_documento')
+                                 <div class="text-danger small mt-1">{{ $message }}</div>
+                              @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
-                               <label class="form-label">Estado del prospecto <span class="text-danger">*</span></label>
-                                <select class="form-select" name="estado_prospecto_id" required>
-                                   <option selected disabled>Seleccione una opción</option>
-                                    @foreach($estadosProspecto as $estado)
-                                       <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
-                                   @endforeach
-                               </select>
-                           </div>
-                     </div>
+                           <label class="form-label">Estado del prospecto <span class="text-danger">*</span></label>
+                           <select class="form-select @error('estado_prospecto_id') is-invalid @enderror" 
+                                   name="estado_prospecto_id" 
+                                   required>
+                                <option selected disabled>Seleccione una opción</option>
+        
+                                @foreach($estadosProspecto as $estado)
+                                    <option value="{{ $estado->id }}" {{ old('estado_prospecto_id') == $estado->id ? 'selected' : '' }}>
+                                          {{ $estado->nombre }}
+                                    </option>
+                              @endforeach
+                          </select>
+
+                          @error('estado_prospecto_id')
+                            <div class="text-danger small">{{ $message }}</div>
+                          @enderror
+                       </div>
 
                     <!-- Documento que dejó -->
-                    <div class="row" id="nuevoDocumentoContainer" style="display:none;">
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Documento que dejó</label>
-                            <input type="text" class="form-control" name="detalle_documento" placeholder="Ejemplo: INE, recibo de luz...">
-                       </div>
-                    </div>
+                    <div class="row" id="nuevoDocumentoContainer" style="{{ old('dejo_documento') == '1' ? 'display:block;' : 'display:none;' }}">
+                          <div class="col-md-12 mb-3">
+                               <label class="form-label">Documento que dejó</label>
+                               <input type="text" 
+                                      class="form-control @error('detalle_documento') is-invalid @enderror" 
+                                      name="detalle_documento" 
+                                      value="{{ old('detalle_documento') }}"
+                                      placeholder="Ejemplo: INE, recibo de luz...">
+        
+                                @error('detalle_documento')
+                                    <div class="text-danger small">{{ $message }}</div>
+                               @enderror
+                          </div>
+                   </div>
 
                   <!-- Notas -->
-                  <div class="row">
-                      <div class="col-md-12 mb-3">
-                             <label class="form-label">Notas</label>
-                            <textarea class="form-control" name="notas" rows="3"></textarea>
-                        </div>
-                  </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                         <label class="form-label">Notas</label>
+                         <textarea class="form-control @error('notas') is-invalid @enderror" 
+                                   name="notas" 
+                                   rows="3">{{ old('notas') }}</textarea>
+        
+                          @error('notas')
+                             <div class="text-danger small">{{ $message }}</div>
+                         @enderror
+                    </div>
+              </div>
 
                   <!-- Mantenemos el botón dentro del form para que funcione el submit -->
                     <div class="modal-footer border-0 p-0 mt-3">
@@ -656,3 +615,17 @@
 </div>
 
 @endsection
+
+@push('scripts')
+    @vite('resources/js/prospectos.js')
+
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                
+                var myModal = new bootstrap.Modal(document.getElementById('modalNuevoProspecto'));
+                myModal.show();
+            });
+        </script>
+    @endif
+@endpush
