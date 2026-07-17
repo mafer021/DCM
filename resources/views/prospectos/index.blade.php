@@ -105,9 +105,23 @@
             </td>
             <td class="text-center">
                 <!-- Editar -->
-                <button class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#modalEditarProspecto">
+                <button 
+                    class="btn btn-warning btn-sm btn-editar" 
+                    title="Editar" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#modalEditarProspecto"
+                    data-id="{{ $prospecto->id }}"
+                    data-nombre="{{ $prospecto->nombre }}"
+                    data-apellido-paterno="{{ $prospecto->apellido_paterno }}"
+                    data-apellido-materno="{{ $prospecto->apellido_materno }}"
+                    data-telefono="{{ $prospecto->telefono }}"
+                    data-tipo-instalacion="{{ $prospecto->tipo_instalacion_id }}"
+                    data-dejo-documento="{{ $prospecto->dejo_documento }}"
+                    data-detalle-documento="{{ $prospecto->detalle_documento }}"
+                    data-estado-prospecto="{{ $prospecto->estado_prospecto_id }}"
+                    data-notas="{{ $prospecto->notas }}">
                     <i class="bi bi-pencil-fill"></i>
-                </button>
+               </button>
                 <!-- Cambiar Estado -->
                 <button class="btn btn-secondary btn-sm" title="Cambiar estado">
                     <i class="bi bi-arrow-repeat"></i>
@@ -295,6 +309,7 @@
                             <div class="text-danger small">{{ $message }}</div>
                           @enderror
                        </div>
+                    </div>
 
                     <!-- Documento que dejó -->
                     <div class="row" id="nuevoDocumentoContainer" style="{{ old('dejo_documento') == '1' ? 'display:block;' : 'display:none;' }}">
@@ -378,135 +393,77 @@
 
             <div class="modal-body">
 
-                <form>
+                <form id="formEditarProspecto" action="" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <!-- Campo oculto para el ID (Vital para el UPDATE) -->
+                    <input type="hidden" id="editId" name="id" value="{{ old('id') }}">
 
                     <div class="row">
-
+                        <!-- Nombre -->
                         <div class="col-md-4 mb-3">
 
-                            <label class="form-label">
-
-                                Nombre <span class="text-danger">*</span>
-
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Juan">
+                            <label class="form-label">Nombre <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="editNombre" name="nombre" value="{{ old('nombre') }}">
+                            @error('nombre') <div class="invalid-feedback">{{ $message }}</div> @enderror
 
                         </div>
-
+                        <!-- Apellido paterno -->
                         <div class="col-md-4 mb-3">
 
-                            <label class="form-label">
-
-                                Apellido paterno <span class="text-danger">*</span>
-
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Pérez">
+                            <label class="form-label">Apellido paterno <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('apellido_paterno') is-invalid @enderror" id="editPaterno" name="apellido_paterno" value="{{ old('apellido_paterno') }}">
+                            @error('apellido_paterno') <div class="invalid-feedback">{{ $message }}</div> @enderror
 
                         </div>
-
+                        <!-- Apellido materno -->
                         <div class="col-md-4 mb-3">
 
-                            <label class="form-label">
-
-                                Apellido materno
-
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="López">
+                            <label class="form-label">Apellido materno</label>
+                            <input type="text" class="form-control @error('apellido_materno') is-invalid @enderror" id="editMaterno" name="apellido_materno" value="{{ old('apellido_materno') }}">
+                            @error('apellido_materno') <div class="invalid-feedback">{{ $message }}</div> @enderror
 
                         </div>
 
                     </div>
 
                     <div class="row">
-
+                        <!-- Teléfono -->
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">
-
-                                Número de teléfono <span class="text-danger">*</span>
-
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="2381234567">
+                            <label class="form-label">Número de teléfono <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="editTelefono" name="telefono" value="{{ old('telefono') }}">
+                            @error('telefono') <div class="invalid-feedback">{{ $message }}</div> @enderror
 
                         </div>
 
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-
-                                Proyecto de interés <span class="text-danger">*</span>
-
-                            </label>
-
-                            <select class="form-select">
-
-                                <option>Sistemas Fotovoltaicos</option>
-                                <option selected>Calentadores Solares</option>
-                                <option>Paneles Solares</option>
-                                <option>Bombas Solares</option>
-                                <option>Biodigestores</option>
-                                <option>Instalaciones Eléctricas</option>
-
+                        <!-- Proyecto de interés -->
+                       <div class="col-md-6 mb-3">
+                            <label class="form-label">Proyecto de interés <span class="text-danger">*</span></label>
+                            <select class="form-select @error('tipo_instalacion_id') is-invalid @enderror" id="editProyecto" name="tipo_instalacion_id">
+                                <option value="">Seleccione una opción</option>
+                                @foreach($tiposInstalacion as $tipo)
+                                       <option value="{{ $tipo->id }}" {{ old('tipo_instalacion_id') == $tipo->id ? 'selected' : '' }}>{{ $tipo->nombre }}</option>
+                                @endforeach
                             </select>
-
+                            @error('tipo_instalacion_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
                     </div>
 
                     <div class="row">
-
+                        <!-- Dejó documento -->
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">
-
-                                ¿Dejó documento?
-
-                            </label>
-
+                            <label class="form-label">¿Dejó documento?</label>
                             <div class="mt-2">
-
                                 <div class="form-check form-check-inline">
-
-                                    <input
-                                        class="form-check-input"
-                                        type="radio"
-                                        checked>
-
-                                    <label class="form-check-label">
-
-                                        Sí
-
-                                    </label>
-
+                                     <input class="form-check-input" type="radio" name="dejo_documento" id="editSiDoc" value="1" {{ old('dejo_documento') == '1' ? 'checked' : '' }}>
+                                     <label class="form-check-label">Sí</label>
                                 </div>
-
                                 <div class="form-check form-check-inline">
-
-                                    <input
-                                        class="form-check-input"
-                                        type="radio">
-
-                                    <label class="form-check-label">
-
-                                        No
-
-                                    </label>
+                                    <input class="form-check-input" type="radio" name="dejo_documento" id="editNoDoc" value="0" {{ old('dejo_documento') == '0' ? 'checked' : '' }}>
+                                    <label class="form-check-label">No</label>
 
                                 </div>
 
@@ -514,99 +471,48 @@
 
                         </div>
 
+                        <!-- Estado del prospecto -->
                         <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-
-                                Estado del prospecto
-
-                            </label>
-
-                            <select class="form-select">
-
-                                <option selected>
-
-                                    Interesado
-
-                                </option>
-
-                                <option>
-
-                                    Solo preguntó
-
-                                </option>
-
-                                <option>
-
-                                    No interesado
-
-                                </option>
-
-                            </select>
-
-                        </div>
+                            <label class="form-label">Estado del prospecto</label>
+                            <select class="form-select @error('estado_prospecto_id') is-invalid @enderror" id="editEstado" name="estado_prospecto_id">
+                               <option value="">Seleccione un estado</option>
+                               @foreach($estadosProspecto as $estado)
+                                   <option value="{{ $estado->id }}" {{ old('estado_prospecto_id') == $estado->id ? 'selected' : '' }}>{{ $estado->nombre }}</option>
+                              @endforeach
+                          </select>
+                            @error('estado_prospecto_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                       </div>
 
                     </div>
 
-                    
+                    <!-- Documento detalle -->
 
-                    <div class="row">
+                    <div class="row" id="editDocumentoContainer">
+                         <div class="col-md-12 mb-3">
+                              <label class="form-label">Documento que dejó</label>
+                               <input type="text" class="form-control @error('detalle_documento') is-invalid @enderror" id="editDetalle" name="detalle_documento" value="{{ old('detalle_documento') }}">
+                                 @error('detalle_documento') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                         </div>
+                   </div>
+                   <!-- Notas -->
+                   <div class="row">
+                       <div class="col-md-12 mb-3">
+                           <label class="form-label">Notas</label>
+                            <textarea class="form-control @error('notas') is-invalid @enderror" id="editNotas" name="notas" rows="3">{{ old('notas') }}</textarea>
+                            @error('notas') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                     </div>
+                  </div>
+               </form>
+          </div>
 
-    <div class="col-md-12 mb-3">
 
-        <label class="form-label">
 
-            Documento que dejó
-
-        </label>
-
-        <input
-            type="text"
-            class="form-control"
-            value="Cotización">
-
-    </div>
-
-</div>
-
-<!-- NOTAS -->
-<div class="row">
-
-    <div class="col-md-12 mb-3">
-
-        <label class="form-label">
-
-            Notas
-
-        </label>
-
-        <textarea
-            class="form-control"
-            rows="3">El cliente solicitó una cotización para un sistema fotovoltaico de 6 paneles. Prefiere ser contactado por WhatsApp después de las 5:00 p.m.</textarea>
-
-    </div>
-
-</div>
-
-</form>
-
-</div>
-
-<div class="modal-footer">
-
-    
-
-    <button
-        type="button"
-        class="btn btn-warning text-white">
-
-        <i class="bi bi-pencil-fill"></i>
-
-        Actualizar prospecto
-
-    </button>
-
-</div>
+            <div class="modal-footer">
+                <button type="submit" form="formEditarProspecto" class="btn btn-warning text-white">
+                      <i class="bi bi-pencil-fill"></i>
+                 Actualizar prospecto
+                </button>
+          </div>
 
         </div>
 
@@ -619,12 +525,18 @@
 @push('scripts')
     @vite('resources/js/prospectos.js')
 
-    @if ($errors->any())
+    {{-- Solo intentamos abrir un modal si el controlador nos envió el aviso --}}
+    @if (session('modal_abierto'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                // Identificamos qué modal abrir según lo que el controlador nos dijo
+                const modalId = "{{ session('modal_abierto') }}" === 'editar' ? 'modalEditarProspecto' : 'modalNuevoProspecto';
+                const modalElement = document.getElementById(modalId);
                 
-                var myModal = new bootstrap.Modal(document.getElementById('modalNuevoProspecto'));
-                myModal.show();
+                if (modalElement) {
+                    var myModal = new bootstrap.Modal(modalElement);
+                    myModal.show();
+                }
             });
         </script>
     @endif

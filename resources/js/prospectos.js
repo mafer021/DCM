@@ -77,34 +77,91 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- 5. Limpieza automática al cerrar el modal ---
-    const modalElement = document.getElementById('modalNuevoProspecto');
+    // --- 5. Limpieza automática al cerrar CUALQUIER modal ---
+    const todosLosModales = document.querySelectorAll('.modal');
 
-    if (modalElement) {
-        modalElement.addEventListener('hidden.bs.modal', function () {
-            // 1. Resetear el formulario (esto limpia todos los inputs, selects y textareas)
+    todosLosModales.forEach(modal => {
+        modal.addEventListener('hidden.bs.modal', function () {
+            
+            // NUEVO: Si existen campos con la clase 'is-invalid', significa que hubo un error de validación.
+            // En ese caso, NO reseteamos nada para permitir que el usuario vea qué falló.
+            if (this.querySelectorAll('.is-invalid').length > 0) {
+                return;
+            }
+
+            // 1. Resetear el formulario solo si NO hay errores
             const form = this.querySelector('form');
             if (form) {
                 form.reset();
             }
 
-            // 2. Ocultar el contenedor de documentos si estaba abierto
-            const container = document.getElementById('nuevoDocumentoContainer');
-            if (container) {
-                container.style.display = 'none';
-            }
-
-            // 3. Quitar clases de validación (para que no se vean rojos o verdes al volver a abrir)
+            // 2. Quitar clases de validación (rojo/verde)
             const inputs = this.querySelectorAll('.form-control, .form-select');
             inputs.forEach(input => {
                 input.classList.remove('is-valid', 'is-invalid');
             });
 
-            // 4. Ocultar todos los mensajes de error
-            const errores = this.querySelectorAll('.text-danger, .invalid-feedback');
+            // 3. Ocultar todos los mensajes de error
+            const errores = this.querySelectorAll('.invalid-feedback');
             errores.forEach(msg => {
                 msg.style.display = 'none';
             });
+
+            // 4. Resetear visibilidad de contenedores específicos
+            const containerDocumento = this.querySelector('#nuevoDocumentoContainer, #editDocumentoContainer');
+            if (containerDocumento) {
+                containerDocumento.style.display = 'none';
+            }
         });
+    });
+    // --- 6. Lógica para el Modal de Editar ---
+const modalEditar = document.getElementById('modalEditarProspecto');
+
+if (modalEditar) {
+    modalEditar.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id'); // Obtenemos el ID aquí
+        const form = document.getElementById('formEditarProspecto');
+
+        // --- NUEVA LÍNEA: Actualiza la ruta del formulario dinámicamente ---
+        form.action = `/prospectos/${id}`;
+
+        // Cargar datos
+        document.getElementById('editId').value = id;
+        document.getElementById('editNombre').value = button.getAttribute('data-nombre');
+        document.getElementById('editPaterno').value = button.getAttribute('data-apellido-paterno');
+        document.getElementById('editMaterno').value = button.getAttribute('data-apellido-materno');
+        document.getElementById('editTelefono').value = button.getAttribute('data-telefono');
+        document.getElementById('editProyecto').value = button.getAttribute('data-tipo-instalacion');
+        document.getElementById('editEstado').value = button.getAttribute('data-estado-prospecto');
+        document.getElementById('editDetalle').value = button.getAttribute('data-detalle-documento');
+        document.getElementById('editNotas').value = button.getAttribute('data-notas');
+
+        // Radio buttons
+        const valDoc = button.getAttribute('data-dejo-documento');
+        document.getElementById('editSiDoc').checked = (valDoc === '1');
+        document.getElementById('editNoDoc').checked = (valDoc === '0');
+        
+        // Mostrar/Ocultar contenedor
+        document.getElementById('editDocumentoContainer').style.display = (valDoc === '1') ? 'block' : 'none';
+    });
+
+    // IMPORTANTE: Agregar esto para que funcione el cambio mientras el modal está abierto
+    const editRadios = modalEditar.querySelectorAll('input[name="dejo_documento"]');
+    const editContainer = document.getElementById('editDocumentoContainer');
+    
+    editRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            editContainer.style.display = (this.value === '1') ? 'block' : 'none';
+        });
+    });
+}
+
+// --- NUEVA LÓGICA DE RECUPERACIÓN POST-ERROR ---
+    const editIdInput = document.getElementById('editId');
+    const formEditar = document.getElementById('formEditarProspecto');
+    
+    if (editIdInput && editIdInput.value) {
+        formEditar.action = `/prospectos/${editIdInput.value}`;
     }
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prospecto;
 use App\Models\TipoInstalacion; // <--- Importamos este
 use App\Models\EstadoProspecto; // <--- Importamos este también para el otro select
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class ProspectoController extends Controller
@@ -24,8 +25,8 @@ class ProspectoController extends Controller
 
     public function store(Request $request)
 {
-    // 1. Validamos
-    $request->validate([
+    // 1. Creamos el validador manualmente
+    $validator = Validator::make($request->all(), [
         'nombre' => ['required', 'string', 'min:2', 'max:100', 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/'],
         'apellido_paterno' => ['required', 'string', 'min:2', 'max:100', 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/'],
         'apellido_materno' => ['nullable', 'string', 'min:2', 'max:100', 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/'],
@@ -34,27 +35,74 @@ class ProspectoController extends Controller
         'estado_prospecto_id' => ['required', 'exists:estados_prospecto,id'],
         'dejo_documento' => ['required', 'boolean'],
         'detalle_documento' => ['required_if:dejo_documento,1', 'nullable', 'string', 'max:255'],
-        'notas' => ['nullable', 'string', 'max:500', 'min:5'], // Mínimo 5 caracteres si escribe algo
+        'notas' => ['nullable', 'string', 'max:500', 'min:5'],
     ], [
-        // Mensajes personalizados (opcional, para que el usuario entienda mejor)
         'telefono.unique' => 'Este número de teléfono ya está registrado en el sistema.',
         'telefono.digits' => 'El número de teléfono debe tener exactamente 10 dígitos.',
         'nombre.regex' => 'El nombre solo debe contener letras.',
         'detalle_documento.required_if' => 'El campo Documento que dejó es obligatorio.',
     ]);
 
-    // 2. Preparamos los datos
+    // 2. Si la validación falla, regresamos con los errores y el "aviso" para abrir el modal
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput()
+            ->with('modal_abierto', 'nuevo'); // <--- Esto es la clave
+    }
+
+    // 3. Preparamos los datos si la validación pasó
     $datos = $request->all();
 
-    // Si el usuario seleccionó "No" (0), forzamos a que el detalle sea null
     if ($request->dejo_documento == '0') {
         $datos['detalle_documento'] = null;
     }
 
-    // 3. Guardamos
+    // 4. Guardamos
     Prospecto::create($datos);
 
-    // 4. Regresamos
+    // 5. Regresamos con éxito
     return redirect()->route('prospectos.index')->with('success', 'Prospecto registrado correctamente.');
+}
+
+public function update(Request $request, $id)
+{
+    // 1. Buscamos el prospecto
+    $prospecto = Prospecto::findOrFail($id);
+
+    // 2. Creamos el validador manualmente
+    $validator = Validator::make($request->all(), [
+        'nombre' => ['required', 'string', 'min:2', 'max:100', 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/'],
+        'apellido_paterno' => ['required', 'string', 'min:2', 'max:100', 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/'],
+        'apellido_materno' => ['nullable', 'string', 'min:2', 'max:100', 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/'],
+        'telefono' => ['required', 'digits:10', 'unique:prospectos,telefono,' . $id],
+        'tipo_instalacion_id' => ['required', 'exists:tipos_instalacion,id'],
+        'estado_prospecto_id' => ['required', 'exists:estados_prospecto,id'],
+        'dejo_documento' => ['required', 'boolean'],
+        'detalle_documento' => ['required_if:dejo_documento,1', 'nullable', 'string', 'max:255'],
+        'notas' => ['nullable', 'string', 'max:500'],
+    ]);
+
+    // 3. Si la validación falla, regresamos con errores y el aviso 'editar'
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput()
+            ->with('modal_abierto', 'editar'); // <--- Esto abre el modal de edición
+    }
+
+    // 4. Preparamos los datos
+    $datos = $request->all();
+
+    // Si cambió a "No dejó documento", limpiamos el detalle anterior
+    if ($request->dejo_documento == '0') {
+        $datos['detalle_documento'] = null;
+    }
+
+    // 5. Actualizamos
+    $prospecto->update($datos);
+
+    // 6. Regresamos con éxito
+    return redirect()->route('prospectos.index')->with('success', 'Prospecto actualizado correctamente.');
 }
 }
