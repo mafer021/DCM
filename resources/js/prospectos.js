@@ -158,10 +158,42 @@ if (modalEditar) {
 }
 
 // --- NUEVA LÓGICA DE RECUPERACIÓN POST-ERROR ---
-    const editIdInput = document.getElementById('editId');
-    const formEditar = document.getElementById('formEditarProspecto');
-    
-    if (editIdInput && editIdInput.value) {
-        formEditar.action = `/prospectos/${editIdInput.value}`;
-    }
+const editIdInput = document.getElementById('editId');
+const formEditar = document.getElementById('formEditarProspecto');
+
+if (editIdInput && editIdInput.value) {
+    formEditar.action = `/prospectos/${editIdInput.value}`;
+}
+
+// --- ASEGURAR VISIBILIDAD DEL CONTENEDOR TRAS UN ERROR DE VALIDACIÓN ---
+const editSiDoc = document.getElementById('editSiDoc');
+const editDocumentoContainer = document.getElementById('editDocumentoContainer');
+
+if (editSiDoc && editDocumentoContainer) {
+    // Si tras el error el radio "Sí" está marcado, mostramos el contenedor. Si no, lo ocultamos.
+    editDocumentoContainer.style.display = editSiDoc.checked ? 'block' : 'none';
+}
+
+const inputBuscar = document.getElementById('inputBuscarProspecto');
+
+if (inputBuscar) {
+    inputBuscar.addEventListener('keyup', function() {
+        const textoBusqueda = inputBuscar.value.toLowerCase().trim();
+        const filas = document.querySelectorAll('#tablaProspectosBody tr');
+
+        filas.forEach(fila => {
+            // Ignoramos la fila del mensaje de "No hay prospectos" si llega a estar sola
+            if (fila.querySelector('td').getAttribute('colspan')) return;
+
+            const textoFila = fila.textContent.toLowerCase();
+            
+            // Si el texto de la fila incluye lo que escribiste, se muestra; si no, se oculta
+            if (textoFila.includes(textoBusqueda)) {
+                fila.style.display = '';
+            } else {
+                fila.style.display = 'none';
+            }
+        });
+    });
+}
 });

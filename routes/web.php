@@ -109,6 +109,7 @@ Route::post('/movimientos/store', [MovimientoController::class, 'store'])->name(
     Route::get('/prospectos', [ProspectoController::class, 'index'])->name('prospectos.index');
     Route::post('/prospectos', [ProspectoController::class, 'store'])->name('prospectos.store');
     Route::put('/prospectos/{id}', [App\Http\Controllers\ProspectoController::class, 'update'])->name('prospectos.update');
+    Route::patch('/prospectos/{id}/toggle-status', [ProspectoController::class, 'toggleStatus'])->name('prospectos.toggleStatus');
 
 
 

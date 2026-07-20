@@ -133,6 +133,8 @@
 
     </div>
 
+    
+
     {{-- MANTENIMIENTOS --}}
     <div class="col-md-6">
 
@@ -183,6 +185,58 @@
 
     </div>
 
+</div>
+
+<!-- Sección de Prospectos Interesados / Dar Seguimiento -->
+<div class="card shadow-sm mb-4 mt-4">
+    <div class="card-body">
+        <h5 class="card-title mb-3">
+            <i class="bi bi-person-lines-fill text-warning me-2"></i> Prospectos en seguimiento (Interesados)
+        </h5>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-header-gray">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Número de teléfono</th>
+                        <th>Dejó documento</th>
+                        <th>Estado del prospecto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($prospectosInteresados as $p)
+                        <tr>
+                            <td>{{ $p->nombre }} {{ $p->apellido_paterno }} {{ $p->apellido_materno }}</td>
+                            <td>
+                                <a href="tel:{{ $p->telefono }}" class="text-decoration-none text-dark">
+                                    {{ $p->telefono }}
+                                </a>
+                            </td>
+                            <td>
+                                @if($p->dejo_documento)
+                                    <span class="text-success">Sí: {{ $p->detalle_documento }}</span>
+                                @else
+                                    <span class="text-secondary">No</span>
+                                @endif
+                            </td>
+                            <td>
+                                <span class="badge bg-info text-dark">
+                                    {{ $p->estadoProspecto->nombre ?? 'N/A' }}
+                                </span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-3">
+                                No hay prospectos pendientes de seguimiento.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @endsection

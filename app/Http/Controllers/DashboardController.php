@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Proyecto;
 use App\Models\Producto;
 use App\Models\Mantenimiento;
+use App\Models\Prospecto;
 
 class DashboardController extends Controller
 {
@@ -22,6 +23,13 @@ $productosBajos = Producto::whereIn('estado', ['stock_bajo', 'agotado'])
                             ->where('estado_producto', 'activo') // <--- AGREGA ESTA LÍNEA
                             ->limit(5)
                             ->get();
+
+                            // 3. NUEVO: Prospectos en seguimiento (Activos y cuyo estado sea 'Interesado')
+        $prospectosInteresados = Prospecto::where('estado', 'activo')
+            ->whereHas('estadoProspecto', function($query) {
+                $query->where('nombre', 'Interesado');
+            })
+            ->get();
 
         // 1. Traemos todos los proyectos (sin filtrar por estado en la DB)
     $proyectos = Proyecto::all();
@@ -41,7 +49,8 @@ $productosBajos = Producto::whereIn('estado', ['stock_bajo', 'agotado'])
         'totalProductos', 
         'totalMantenimientos', 
         'productosBajos', 
-        'proximosMantenimientos'
+        'proximosMantenimientos',
+        'prospectosInteresados'
     ));
 }
 }

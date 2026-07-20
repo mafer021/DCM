@@ -62,13 +62,21 @@ class ProspectoController extends Controller
     Prospecto::create($datos);
 
     // 5. Regresamos con éxito
-    return redirect()->route('prospectos.index')->with('success', 'Prospecto registrado correctamente.');
+
+    $nombreCompleto = $prospecto->nombre . ' ' . $prospecto->apellido_paterno . ($prospecto->apellido_materno ? ' ' . $prospecto->apellido_materno : '');
+
+return redirect()->route('prospectos.index')->with('success', 'Prospecto ' . $nombreCompleto . ' registrado correctamente.');
 }
 
 public function update(Request $request, $id)
 {
     // 1. Buscamos el prospecto
     $prospecto = Prospecto::findOrFail($id);
+
+    // SEGURIDAD EXTRA: Si está inactivo, no permitir editarlo
+    if ($prospecto->estado === 'inactivo') {
+        return redirect()->route('prospectos.index')->with('error', 'No se puede editar un prospecto que se encuentra inactivo.');
+    }
 
     // 2. Creamos el validador manualmente
     $validator = Validator::make($request->all(), [
@@ -81,6 +89,9 @@ public function update(Request $request, $id)
         'dejo_documento' => ['required', 'boolean'],
         'detalle_documento' => ['required_if:dejo_documento,1', 'nullable', 'string', 'max:255'],
         'notas' => ['nullable', 'string', 'max:500'],
+    ], [
+        // Mensajes personalizados
+        'detalle_documento.required_if' => 'El campo documento que dejó es obligatorio cuando seleccionas que sí dejó documento.'
     ]);
 
     // 3. Si la validación falla, regresamos con errores y el aviso 'editar'
@@ -103,6 +114,26 @@ public function update(Request $request, $id)
     $prospecto->update($datos);
 
     // 6. Regresamos con éxito
-    return redirect()->route('prospectos.index')->with('success', 'Prospecto actualizado correctamente.');
+    $nombreCompleto = $prospecto->nombre . ' ' . $prospecto->apellido_paterno . ($prospecto->apellido_materno ? ' ' . $prospecto->apellido_materno : '');
+
+return redirect()->route('prospectos.index')->with('success', 'Prospecto ' . $nombreCompleto . ' actualizado correctamente.');
+}
+
+public function toggleStatus($id)
+{
+    $prospecto = Prospecto::findOrFail($id);
+    
+    // Cambiamos el estado dependiendo de lo que tenga actualmente
+    if ($prospecto->estado === 'activo') {
+        $prospecto->estado = 'inactivo';
+    } else {
+        $prospecto->estado = 'activo';
+    }
+    
+    $prospecto->save();
+
+    $nombreCompleto = $prospecto->nombre . ' ' . $prospecto->apellido_paterno . ($prospecto->apellido_materno ? ' ' . $prospecto->apellido_materno : '');
+
+return redirect()->route('prospectos.index')->with('success', 'El estado del prospecto ' . $nombreCompleto . ' ha sido actualizado correctamente.');
 }
 }

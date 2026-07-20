@@ -34,10 +34,19 @@
 
     </div>
 
+    <!-- ALERTA DE ÉXITO -->
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show shadow-sm mb-3" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <!-- Barra de búsqueda (Ahora está fuera de la tarjeta) -->
+<!-- Barra de búsqueda -->
 <div class="buscador-container mb-3">
     <i class="bi bi-search"></i>
-    <input type="text" class="form-control" placeholder="Buscar por nombre o teléfono">
+    <input type="text" id="inputBuscarProspecto" class="form-control" placeholder="Buscar por nombre o teléfono">
 </div>
 
     <!-- Tarjeta -->
@@ -79,7 +88,7 @@
 
                 </thead>
 
-                <tbody>
+                <tbody id="tablaProspectosBody">
     @forelse($prospectos as $prospecto)
         <tr>
             <td>{{ $prospecto->nombre }} {{ $prospecto->apellido_paterno }} {{ $prospecto->apellido_materno }}</td>
@@ -105,6 +114,7 @@
             </td>
             <td class="text-center">
                 <!-- Editar -->
+                @if($prospecto->estado === 'activo')
                 <button 
                     class="btn btn-warning btn-sm btn-editar" 
                     title="Editar" 
@@ -122,10 +132,20 @@
                     data-notas="{{ $prospecto->notas }}">
                     <i class="bi bi-pencil-fill"></i>
                </button>
-                <!-- Cambiar Estado -->
-                <button class="btn btn-secondary btn-sm" title="Cambiar estado">
-                    <i class="bi bi-arrow-repeat"></i>
-                </button>
+               @else
+               <!-- Botón deshabilitado si está inactivo -->
+                <button type="button" class="btn btn-secondary btn-sm" disabled title="No se puede editar un prospecto inactivo">
+                   <i class="bi bi-pencil-fill"></i>
+               </button>
+                @endif
+                <!-- Botón Cambiar Estado (Activar/Desactivar) -->
+               <form action="{{ route('prospectos.toggleStatus', $prospecto->id) }}" method="POST" style="display:inline;">
+                     @csrf
+                     @method('PATCH')
+                     <button type="submit" class="btn btn-secondary btn-sm" title="Cambiar estado">
+                          🔄
+                     </button>
+                </form>
             </td>
         </tr>
     @empty
@@ -432,7 +452,7 @@
                         <div class="col-md-6 mb-3">
 
                             <label class="form-label">Número de teléfono <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="editTelefono" name="telefono" value="{{ old('telefono') }}">
+                            <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="editTelefono" name="telefono" value="{{ old('telefono') }}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);">
                             @error('telefono') <div class="invalid-feedback">{{ $message }}</div> @enderror
 
                         </div>
