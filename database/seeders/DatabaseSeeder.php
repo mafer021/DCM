@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TipoInstalacionSeeder::class,
             TipoDocumentoSeeder::class,
+            CategoriasProductosSeeder::class,
+            EstadoProspectoSeeder::class,
+            UnidadesMedidaSeeder::class,
         ]);
     }
 }
