@@ -59,7 +59,7 @@ class ProspectoController extends Controller
     }
 
     // 4. Guardamos
-    Prospecto::create($datos);
+    $prospecto = Prospecto::create($datos);
 
     // 5. Regresamos con éxito
 
