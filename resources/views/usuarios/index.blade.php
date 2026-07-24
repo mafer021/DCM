@@ -29,6 +29,13 @@
     </div>
 @endif
 
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
 <div class="card border-0 shadow-sm">
     <div class="table-responsive">
         <table class="table align-middle mb-0">
@@ -59,20 +66,25 @@
             @endif
         </td>
         <td>
-            <form action="{{ route('usuarios.estado', $usuario->id) }}" method="POST" style="display: inline;">
-                @csrf
-                @method('PATCH')
-                
-                @if($usuario->estado == 'activo')
-                    <button type="submit" class="badge badge-activo" style="border: none; cursor: pointer;" title="Click para desactivar usuario">
-                        Activo
-                    </button>
-                @else
-                    <button type="submit" class="badge badge-inactivo" style="border: none; cursor: pointer;" title="Click para activar usuario">
-                        Inactivo
-                    </button>
-                @endif
-            </form>
+            @if($usuario->id == 1)
+                {{-- El usuario principal del seeder se queda fijo como activo sin formulario --}}
+                <span class="badge badge-activo">Activo (Principal)</span>
+            @else
+                <form action="{{ route('usuarios.estado', $usuario->id) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('PATCH')
+                    
+                    @if($usuario->estado == 'activo')
+                        <button type="submit" class="badge badge-activo" style="border: none; cursor: pointer;" title="Click para desactivar usuario">
+                            Activo
+                        </button>
+                    @else
+                        <button type="submit" class="badge badge-inactivo" style="border: none; cursor: pointer;" title="Click para activar usuario">
+                            Inactivo
+                        </button>
+                    @endif
+                </form>
+            @endif
         </td>
         <td>{{ $usuario->created_at->format('d/m/Y') }}</td>
         <td>

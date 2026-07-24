@@ -110,12 +110,20 @@
                     </td>
                     <td>
                         {{-- EDITAR --}}
+                        @if($producto->estado_producto === 'activo')
                         <button class="btn btn-sm btn-light" 
                             onclick="editarProducto({{ json_encode($producto) }})"
                             data-bs-toggle="modal" 
-                            data-bs-target="#modalEditarProducto">
+                            data-bs-target="#modalEditarProducto"
+                            title="Editar">
                             ✏️
                         </button>
+                        @else
+                       {{-- Botón deshabilitado si está inactivo --}}
+                       <button type="button" class="btn btn-sm btn-secondary" disabled title="No se puede editar un producto inactivo">
+                              ✏️
+                       </button>
+                        @endif
 
                         {{-- ACTIVAR / DESACTIVAR (En lugar de eliminar) --}}
                         <form action="{{ route('inventario.desactivar', $producto->id) }}" method="POST" style="display:inline;">

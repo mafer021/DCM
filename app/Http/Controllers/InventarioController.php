@@ -89,6 +89,14 @@ public function desactivar($id)
 
 public function update(Request $request, $id)
 {
+
+ $producto = \App\Models\Producto::findOrFail($id);
+
+  // SEGURIDAD EXTRA: Si está inactivo, no permitir editarlo
+    if ($producto->estado_producto === 'inactivo') {
+        return redirect()->route('inventario.index')->with('error', 'No se puede editar un producto que se encuentra inactivo.');
+    }
+
     $request->validate([
         'nombre' => 'required|max:150',
         'categoria_id' => 'required',
@@ -96,7 +104,7 @@ public function update(Request $request, $id)
         'precio' => 'required|numeric|min:0.01',
     ]);
 
-    $producto = \App\Models\Producto::findOrFail($id);
+    
     $producto->update([
         'nombre' => $request->nombre,
         'categoria_id' => $request->categoria_id,

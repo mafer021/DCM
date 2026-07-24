@@ -162,20 +162,25 @@ class UsuarioController extends Controller
 
     // 2. SEGURIDAD: Evitar que el administrador que está logueado se desactive a sí mismo
     if (auth()->id() == $usuario->id) {
-        return back()->withErrors(['error' => 'No puedes desactivar tu propia cuenta.']);
+        return back()->with('error', 'No puedes desactivar tu propia cuenta.');
     }
 
-    // 3. INTERRUPTOR (Switch): Si está activo pasa a inactivo, y viceversa
+    // 3. SEGURIDAD: Evitar desactivar al usuario principal del seeder (ID 1)
+    if ($usuario->id == 1) {
+        return back()->with('error', 'Por seguridad, el usuario administrador principal del sistema no se puede desactivar.');
+    }
+
+    // 4. INTERRUPTOR (Switch): Si está activo pasa a inactivo, y viceversa
     if ($usuario->estado === 'activo') {
         $usuario->estado = 'inactivo';
     } else {
         $usuario->estado = 'activo';
     }
 
-    // 4. Guardamos el cambio en la base de datos
+    // 5. Guardamos el cambio en la base de datos
     $usuario->save();
 
-    // 5. Creamos un mensaje dinámico personalizado con el nombre de usuario
+    // 6. Creamos un mensaje dinámico personalizado con el nombre de usuario
     $mensaje = $usuario->estado === 'activo' 
         ? 'Usuario ' . $usuario->usuario_login . ' activado correctamente.' 
         : 'Usuario ' . $usuario->usuario_login . ' ha sido suspendido.';
